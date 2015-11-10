@@ -1,0 +1,49 @@
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+    	<input  id="in" type="text" name="buscar">
+    	<input  id="btn" type="submit" value="buscar">
+
+    	<div id="datos"></div>
+
+    <script>
+    $("#btn").on("click" , HiceClick);
+    
+    function HiceClick(){
+    	var code = document.getElementById("in").value;
+    	$("#datos").html("");
+    	var html ="";
+
+    	$.ajax({
+
+    		data : {"code" : code},
+    		url : "/ajx-consulta",
+    		type : "get",
+    		dataType: 'json',
+    		success : function(data){
+    			
+    			var dt = data.data;
+    			if(dt.length>0){
+                    
+                    for(i=0; i<data.length ; i++){
+    				    html= "Nombre: " + dt[i].nombre + " Consecutivo: " + dt[i].consecutivo + " Encargado: " + dt[i].encargado;
+                    }
+
+    			}else{
+    				html = "No existe paz y salvos relacionados";
+    			}
+    		
+    			$("#datos").html(html);
+
+    		}
+
+
+
+    	});
+    }
+</script>
+
+</head>
+</html>

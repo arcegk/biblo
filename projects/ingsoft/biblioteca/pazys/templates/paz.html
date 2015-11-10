@@ -1,0 +1,78 @@
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    	var code = "";
+    </script>
+    
+    	<input  id="in" type="text" name="buscar">
+    	<input  id="btn" type="submit" value="buscar">
+    	<input 	id="btn-c" type="submit" value="crear">
+
+    	<div id="datos"></div>
+
+    <script>
+    $("#btn").on("click" , HiceClick);
+    
+    function HiceClick(){
+    	code  = document.getElementById("in").value;
+    	$("#datos").html("");
+    	var html ="";
+
+    	$.ajax({
+
+    		data : {"code" : code},
+    		url : "/get-user",
+    		type : "get",
+    		dataType: 'json',
+    		success : function(data){
+    			
+    			var dt = data.data;
+    			if(dt.length>0){
+    				html= "Nombre: " + dt[0].nombre + " Codigo: " + dt[0].codigo;
+    			}else{
+    				html = "No existe un estudiante con ese codigo";
+    			}
+    		
+    			$("#datos").html(html);
+
+    		}
+
+
+
+    	});
+    }
+</script>
+
+<script>
+    $("#btn-c").on("click" , HiceClick2);
+    
+    function HiceClick2(){
+
+    	$.ajax({
+
+    		data : {"code" : code},
+    		url : "/ajx-generar",
+    		type : "get",
+    		dataType: 'json',
+    		success : function(data){
+    			
+    			var dt = data.data;
+    			if(dt.length>0){
+    				html= "Creado exitosamente consecutivo: " + "00" + dt[0].id;
+    			}else{
+    				html = "No se pudo crear";
+    			}
+    		
+    			$("#datos").html(html);
+
+    		}
+
+
+
+    	});
+    }
+</script>
+
+</head>
+</html>
