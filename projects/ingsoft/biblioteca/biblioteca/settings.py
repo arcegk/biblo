@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pazys',
+    'reservas',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -68,6 +69,12 @@ TEMPLATES = [
         },
     },
 ]
+
+#Templates
+TEMPLATE_DIRS = (
+    BASE_DIR + '/biblioteca/templates/',
+    BASE_DIR + '/reservas/templates/',
+)
 
 WSGI_APPLICATION = 'biblioteca.wsgi.application'
 

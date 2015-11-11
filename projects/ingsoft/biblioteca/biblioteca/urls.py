@@ -18,11 +18,12 @@ from django.contrib import admin
 from pazys.views import GetUser , GenerarPazySalvo , AjxConsulta , ConsultarPazySalvo , AjxGenerar
 
 urlpatterns = [
+    url(r'^$', 'biblioteca.views.index',name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^get-user/$', GetUser.as_view() , name = "getus"),
     url(r'^gen/$', GenerarPazySalvo.as_view() , name = "gen"),
-     url(r'^ajx-consulta/$', AjxConsulta.as_view() , name = "ajxC"),
+    url(r'^ajx-consulta/$', AjxConsulta.as_view() , name = "ajxC"),
     url(r'^consultar/$', ConsultarPazySalvo.as_view() , name = "gen"),
     url(r'^ajx-generar/$', AjxGenerar.as_view() , name = "ajxG"),
+    url(r'^reservas/', include('reservas.urls',namespace="reservas")),
 ]
-    

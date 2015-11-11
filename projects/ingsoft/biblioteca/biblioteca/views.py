@@ -2,5 +2,5 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 # Create your views here.
 
-def reserva_consulta(request):
-    return render_to_response('reserva_consulta.html',{},RequestContext(request))
+def index(request):
+    return render_to_response('index.html',{},RequestContext(request))
