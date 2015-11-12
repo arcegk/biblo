@@ -4,6 +4,77 @@
 
 {% block content %}
     <h1>Registro de Reserva</h1>
+    <form class="form-inline" action="/reservas/reserva_registro/" method="post" >
+        {% csrf_token %}         
+        <div class="form-group">
+            <label for="txtLibro">Código Libro</label>
+            <input type="text" class="form-control" id="txtLibro" placeholder="12345">
+            <input type="hidden" class="form-control" id="hdnAccion" placeholder="1">
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+    </form>
+    {% if view_libro %}
+        <table class="table">
+            <tr>
+                <th>
+                    Nombre de libro
+                </th>
+                <td>
+                    {{libro}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Autor
+                </th>
+                <td>
+                    {{autor}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Descripcion
+                </th>
+                <td>
+                    {{descripcion}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Tipo de material
+                </th>
+                <td>
+                    {{material}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Clasificación
+                </th>
+                <td>
+                    {{clasificacion}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    ISBN
+                </th>
+                <td>
+                    {{isbn}}
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+    {% if view_documento %}
+        <form class="form-inline">        
+            <div class="form-group">
+                <label for="txtCedula">Cédula</label>
+                <input type="text" class="form-control" id="txtCedula" placeholder="12345">
+                <input type="hidden" class="form-control" id="hdnAccion" placeholder="2">
+            </div>
+            <button type="submit" class="btn btn-default">Buscar</button>
+        </form>
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}
