@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'^consultar/$', ConsultarPazySalvo.as_view() , name = "gen"),
     url(r'^ajx-generar/$', AjxGenerar.as_view() , name = "ajxG"),
     url(r'^reservas/', include('reservas.urls',namespace="reservas")),
+    url(r'^prestamo/' , include('prestamo.urls' , namespace="prestamos")),
+    url(r'^libros/', include('libros.urls', namespace='libros')),
 ]

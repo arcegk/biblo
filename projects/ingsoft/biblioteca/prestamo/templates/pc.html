@@ -1,0 +1,54 @@
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+      <input  id="in" type="text" name="buscar">
+      <input  id="btn" type="submit" value="buscar">
+
+      <div id="datos"></div>
+
+    <script>
+    $("#btn").on("click" , HiceClick);
+    
+    function HiceClick(){
+      var code = document.getElementById("in").value;
+      $("#datos").html("");
+      var html ="";
+
+      $.ajax({
+
+        data : {"code" : code},
+        url : "/ajx-consultarp",
+        type : "get",
+        dataType: 'json',
+        success : function(data){
+          
+          var dt = data.data;
+          console.log(dt)
+
+
+          if(dt.length==0){
+            html = "No tiene prestamos activos";
+          
+          }else if(dt[0].prestamos.length>0){
+                    
+                  html+= dt[0].nombre + "\n";
+                  for(i=0; i<dt[0].prestamos.length ; i++){
+                  html+= "Titulo: " + dt[0].prestamos[0].titulo + "\n";
+                    }
+
+          }
+        
+          $("#datos").html(html);
+
+        }
+
+
+
+      });
+    }
+</script>
+
+</head>
+</html>
