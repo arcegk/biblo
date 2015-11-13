@@ -10,5 +10,5 @@ class RegistroPrestamo(models.Model):
     fechaInicioPrestamo = models.DateTimeField(default=timezone.now)
     fechaLimite = models.DateTimeField()
 
-def __str__(self):
-    return self.numeroRegistro    
+    def __str__(self):
+        return self.numeroRegistro    

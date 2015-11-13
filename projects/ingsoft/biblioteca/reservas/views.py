@@ -6,6 +6,13 @@ from .forms import ReservaForm
 from .models import Reserva
 
 # Create your views here.
+def reserva_detalle(request, codigo):
+    reserva = Reserva.objects.get(id__exact=codigo)
+    if reserva == null:
+        return render_to_response('reserva_consulta.html',{'mensaje':'Código de reserva no encontrado'},RequestContext(request))
+    else
+        return render_to_response('reserva_consulta.html',{'reserva':reserva},RequestContext(request))
+
 @csrf_exempt    
 def reserva_consulta(request):
     reserva = ReservaForm()
