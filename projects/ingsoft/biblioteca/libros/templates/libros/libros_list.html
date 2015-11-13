@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Libros</h1>
+        <form>
+        	<input name='filter' placeholder="ingrese su palabra de busqueda" value="{{ request.GET.filter }}">
+        	<input type="submit" value="Filtrar" />
+    	</form>
+	<ul>
+	    {% if libros %}        
+                {% for libro in libros %}
+                    <li>{{ libro.titulo }} - ({{ libro.autor }}) - ({{ libro.codigoasignado }})-({{libro.temaprincipal}})
+                        <a href="{% url 'libros:libros_update' libro.id %}">Edit</a>
+                        <a href="{% url 'libros:libros_delete' libro.id %}">Delete</a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <h2>Termino de búsqueda es invalido o no fue encontrado</h2>
+            {% endif %}
+	</ul>
+
+	<a href="{% url 'libros:libros_create' %}">CREAR LIBRO</a>
+{% endblock %}

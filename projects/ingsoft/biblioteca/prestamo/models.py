@@ -1,25 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from pazys.models import Estudiante
-
-class Libro(models.Model):
-    codigoDewey = models.CharField(max_length=200)
-    tituloLibro = models.CharField(max_length=200)
-    volumenLibro = models.CharField(max_length=200)
-    edicionLibro = models.CharField(max_length=200)
-
-    def __unicode__(self):
-        return self.codigoDewey
-
-    published_date = models.DateTimeField(
-        blank=True, null=True)
-
-    
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
+from libros.models import Libro
 
 class RegistroPrestamo(models.Model):
     libro = models.ForeignKey(Libro)

@@ -1,8 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from .models import RegistroPrestamo , Libro
+from .models import RegistroPrestamo
 from django.views.generic import TemplateView , View
 from pazys.models import Estudiante
+from libros.models import Libro
 from datetime import datetime , timedelta
 import json
 
@@ -26,7 +27,7 @@ class AjxGenerarPrestamo(View):
 		try:
 			obj = RegistroPrestamo()
 			obj.estudiante = Estudiante.objects.get(codigo=code)
-			obj.libro = Libro.objects.get(codigoDewey=libro)
+			obj.libro = Libro.objects.get(codigoasignado=libro)
 			obj.fechaInicioPrestamo = datetime.now()
 			obj.fechaLimite = datetime.now()+timedelta(days=5)
 			obj.save()
@@ -51,11 +52,11 @@ class AjxConsultaLibro(View):
 		diccionario = []
 		try:
 			
-			libro = Libro.objects.get(codigoDewey=libro)
+			libro = Libro.objects.get(codigoasignado=libro)
 			diccionario.append({
-					'titulo' : libro.tituloLibro,
-					'edicion' : libro.edicionLibro,
-					'volumen' : libro.volumenLibro,
+					'titulo' : libro.titulo,
+					'edicion' : libro.Edicion,
+					'volumen' : libro.volumen,
 				})
 
 		except ObjectDoesNotExist:
