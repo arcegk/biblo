@@ -1,0 +1,80 @@
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+        var code = "";
+        var libro = "";
+    </script>
+    
+        <input  id="in" type="text" name="buscar">
+        <input  id="incd" type="text" name="codigo">
+        <input  id="btn" type="submit" value="buscar">
+        <input  id="btn-c" type="submit" value="crear">
+
+        <div id="datos"></div>
+
+    <script>
+    $("#btn").on("click" , HiceClick);
+    
+    function HiceClick(){
+        libro  = document.getElementById("in").value;
+        $("#datos").html("");
+        var html ="";
+
+        $.ajax({
+
+            data : {"libro" : libro},
+            url : "/ajx-consultarl",
+            type : "get",
+            dataType: 'json',
+            success : function(data){
+                
+                var dt = data.data;
+                if(dt.length>0){
+                    html= "titulo: " + dt[0].titulo + " edicion: " + dt[0].edicion + " volumen: " + dt[0].volumen;
+                }else{
+                    html = "No existe un libro con ese codigo";
+                }
+            
+                $("#datos").html(html);
+
+            }
+
+
+
+        });
+    }
+</script>
+
+<script>
+    $("#btn-c").on("click" , HiceClick2);
+    
+    function HiceClick2(){
+        code  = document.getElementById("incd").value;
+        $.ajax({
+
+            data : {"code" : code , "libro" : libro},
+            url : "/ajx-generarp",
+            type : "get",
+            dataType: 'json',
+            success : function(data){
+                
+                var dt = data.data;
+                if(dt.length>0){
+                    html= "Creado exitosamente consecutivo: " + "00" + dt[0].id;
+                }else{
+                    html = "No se pudo crear";
+                }
+            
+                $("#datos").html(html);
+
+            }
+
+
+
+        });
+    }
+</script>
+
+</head>
+</html>
