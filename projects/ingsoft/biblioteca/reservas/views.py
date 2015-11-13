@@ -6,17 +6,19 @@ from .forms import ReservaForm
 from .models import Reserva
 
 # Create your views here.
-def reserva_consulta(request):    
-    if request.method=='POST':
-        for key in request.POST:
-            print(request.POST[key])
-        codigo = request.POST.get("txtCodigo", "")
+@csrf_exempt    
+def reserva_consulta(request):
+    reserva = ReservaForm()
+    if request.method == 'POST':
+        reserva = ReservaForm(request.POST)
+        print(reserva)
+        codigo = usuario.cleaned_data['id']
         reserva = Reserva.objects.get(id__exact=codigo)
         if reserva == null :
-            return render_to_response('reserva_consulta.html',{'mensaje':'Reserva no registrada'},RequestContext(request))
+            return render_to_response('reserva_consulta.html',{'reserva':reserva,'mostrar_reserva':False,'mensaje':'Reserva no registrada',},RequestContext(request))
         else:
             return render_to_response('reserva_consulta.html',{'reserva':reserva},RequestContext(request))
-    return render_to_response('reserva_consulta.html',{},RequestContext(request))
+    return render_to_response('reserva_consulta.html',{'reserva':reserva,'mostrar_reserva':False},RequestContext(request))
     
 @csrf_exempt    
 def reserva_registro(request):
