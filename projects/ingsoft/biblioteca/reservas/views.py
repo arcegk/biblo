@@ -8,8 +8,10 @@ from .models import Reserva
 # Create your views here.
 def reserva_consulta(request):    
     if request.method=='POST':
-        codigo = request.POST.get("codigo", "")
-        reserva = Reserva.objects.get(id=codigo)
+        for key in request.POST:
+            print(request.POST[key])
+        codigo = request.POST.get("txtCodigo", "")
+        reserva = Reserva.objects.get(id__exact=codigo)
         if reserva == null :
             return render_to_response('reserva_consulta.html',{'mensaje':'Reserva no registrada'},RequestContext(request))
         else:
