@@ -5,5 +5,3 @@ from django.contrib.auth.models import User
 
 class Reserva(models.Model):
 	fecha_creacion = models.DateField(auto_now=True)
-	User = models.ForeignKey(User)
-	#libro = models.ForeignKey(Programa)

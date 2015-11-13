@@ -2,14 +2,25 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 
+from .forms import ReservaForm
+from .models import Reserva
+
 # Create your views here.
-def reserva_consulta(request):
+def reserva_consulta(request):    
+    if request.method=='POST':
+        codigo = request.POST.get("codigo", "")
+        reserva = Reserva.objects.get(id=codigo)
+        if reserva == null :
+            return render_to_response('reserva_consulta.html',{'mensaje':'Reserva no registrada'},RequestContext(request))
+        else:
+            return render_to_response('reserva_consulta.html',{'reserva':reserva},RequestContext(request))
     return render_to_response('reserva_consulta.html',{},RequestContext(request))
     
 @csrf_exempt    
 def reserva_registro(request):
-    v={}
-    if request.method == 'POST':        
+    
+    if request.method=='POST':
+        print(request.POST)
         accion = request.POST.get("hdnAccion", "")
         print(accion)
         if accion == "1":
