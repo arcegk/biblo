@@ -22,7 +22,10 @@ urlpatterns = [
     url(r'^pazys/' , include('pazys.urls' , namespace="pazys")),
     url(r'^dev-mul/' , include('multas.urls' , namespace="multas")),
     url(r'^libros/', include('libros.urls', namespace='libros')),
-    url(r'^$', 'biblioteca.views.index',name='index'),
+    url(r'^home/', 'biblioteca.views.index',name='index'),
+    url(r'^$' ,
+        'django.contrib.auth.views.login' , 
+        {'template_name' : 'login.html'} ),
     url(r'^reservas/', include('reservas.urls',namespace="reservas")),
     
 ]
