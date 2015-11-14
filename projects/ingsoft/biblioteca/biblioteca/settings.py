@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'reservas',
     'biblioteca',
     'prestamo',
+    'libros',
 )
 
 MIDDLEWARE_CLASSES = (
