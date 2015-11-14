@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from django.template.context_processors import csrf
@@ -12,11 +13,14 @@ from pazys.models import Estudiante
 def reserva_consulta(request):
     if request.method == 'POST':
         codigo=request.POST.get('codigo','')
-        reserva = Reserva.objects.get(id=codigo)
-        if reserva == None :
-            return render_to_response('reserva_consulta.html',{'mensaje':'Reserva no registrada',},RequestContext(request))
-        else:
+        try:
+            reserva = Reserva.objects.get(id=codigo)
             return render_to_response('reserva_consulta.html',{'reserva':reserva},RequestContext(request))
+        
+        except ObjectDoesNotExist :
+            return render_to_response('reserva_consulta.html',{'mensaje':'Reserva no registrada',},RequestContext(request))
+        
+            
     return render_to_response('reserva_consulta.html',{},RequestContext(request))
     
 @csrf_protect   
