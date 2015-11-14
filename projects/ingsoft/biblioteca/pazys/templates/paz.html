@@ -17,7 +17,7 @@
     function HiceClick(){
     	code  = document.getElementById("in").value;
         if(code.length>0){
-            if(/^\d{9}$/.test(code.value)){
+            if(/^\d{7}$/.test(code)){
             	$("#datos").html("");
             	var html ="";
 
@@ -45,7 +45,7 @@
 
     	});
         }else{
-            window.alert("por favor ingrese números")
+            window.alert("por favor ingrese números (7)")
         }
     }else{
         window.alert("Por favor llene el campo");
