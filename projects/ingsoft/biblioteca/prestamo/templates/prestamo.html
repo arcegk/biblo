@@ -101,7 +101,8 @@
 
         code  = document.getElementById("incd").value;
                 var html ="";
-
+        if(code.length>0){
+            if(/^\d{7}$/.test(code)){
                 $.ajax({
  
                 data : {"code" : code},
@@ -126,6 +127,12 @@
 
 
         });
+         }else{
+            window.alert("por favor ingrese números (7)")
+        }
+    }else{
+        window.alert("Por favor llene el campo");
+    }
        
 }
 </script>

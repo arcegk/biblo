@@ -4,7 +4,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
-      Student id: <input  id="in" type="text" name="buscar">
+      Student ID: <input  id="in" type="text" name="buscar">
       <input  id="btn" type="submit" value="buscar">
 
       <div id="datos"></div>
@@ -14,6 +14,8 @@
     
     function HiceClick(){
       var code = document.getElementById("in").value;
+       if(code.length>0){
+            if(/^\d{10}$/.test(code)){
       $("#datos").html("");
       var html ="";
 
@@ -48,6 +50,12 @@
 
 
       });
+    }else{
+            window.alert("por favor ingrese números (10)")
+        }
+    }else{
+        window.alert("Por favor llene el campo");
+    }
     }
 </script>
 

@@ -13,6 +13,8 @@
     
     function HiceClick(){
     	var code = document.getElementById("in").value;
+        if(code.length>0){
+            if(/^\d{10}$/.test(code)){
     	$("#datos").html("");
     	var html ="";
 
@@ -43,6 +45,12 @@
 
 
     	});
+        }else{
+            window.alert("por favor ingrese números (10)")
+        }
+    }else{
+        window.alert("Por favor llene el campo");
+    }
     }
 </script>
 
