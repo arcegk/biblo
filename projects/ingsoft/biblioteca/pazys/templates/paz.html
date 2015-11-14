@@ -16,33 +16,41 @@
     
     function HiceClick(){
     	code  = document.getElementById("in").value;
-        document.getElementById('btn-c').style.display = 'block';
-    	$("#datos").html("");
-    	var html ="";
+        if(code.length>0){
+            if(/^\d{9}$/.test(code.value)){
+                document.getElementById('btn-c').style.display = 'block';
+            	$("#datos").html("");
+            	var html ="";
 
-    	$.ajax({
+            	$.ajax({
  
-    		data : {"code" : code},
-    		url : "/pazys/get-user",
-    		type : "get",
-    		dataType: 'json',
-    		success : function(data){
-    			
-    			var dt = data.data;
-    			if(dt.length>0){
-    				html= "Nombre: " + dt[0].nombre + " Codigo: " + dt[0].codigo;
-    			}else{
-    				html = "No existe un estudiante con ese codigo";
-    			}
-    		
-    			$("#datos").html(html);
+        		data : {"code" : code},
+        		url : "/pazys/get-user",
+        		type : "get",
+        		dataType: 'json',
+        		success : function(data){
+        			
+        			var dt = data.data;
+        			if(dt.length>0){
+        				html= "Nombre: " + dt[0].nombre + " Codigo: " + dt[0].codigo;
+        			}else{
+        				html = "No existe un estudiante con ese codigo";
+        			}
+        		
+        			$("#datos").html(html);
 
-    		}
+        		}
 
 
 
     	});
+        }else{
+            window.alert("por favor ingrese números")
+        }
+    }else{
+        window.alert("Por favor llene el campo");
     }
+}
 </script>
 
 <script>
