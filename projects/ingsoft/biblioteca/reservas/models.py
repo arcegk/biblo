@@ -9,3 +9,4 @@ class Reserva(models.Model):
 	fecha_creacion = models.DateField(auto_now=True)
 	libro = models.ForeignKey(Libro)
 	estudiante = models.ForeignKey(Estudiante)
+	active = models.BooleanField(default=True) 

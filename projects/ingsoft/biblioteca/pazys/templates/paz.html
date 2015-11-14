@@ -18,7 +18,6 @@
     	code  = document.getElementById("in").value;
         if(code.length>0){
             if(/^\d{9}$/.test(code.value)){
-                document.getElementById('btn-c').style.display = 'block';
             	$("#datos").html("");
             	var html ="";
 
@@ -33,6 +32,7 @@
         			var dt = data.data;
         			if(dt.length>0){
         				html= "Nombre: " + dt[0].nombre + " Codigo: " + dt[0].codigo;
+                        document.getElementById('btn-c').style.display = 'block';
         			}else{
         				html = "No existe un estudiante con ese codigo";
         			}
@@ -69,6 +69,7 @@
     			var dt = data.data;
     			if(dt.length>0){
     				html= "Creado exitosamente consecutivo: " + "0" + dt[0].id;
+                    document.getElementById('btn-c').style.display = 'none';
     			}else{
     				html = "No se pudo crear";
     			}

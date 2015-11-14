@@ -64,7 +64,7 @@
                 <label for="estudiante">Código estudiante</label>
                 <input type="text" class="form-control" id="estudiante" name="estudiante" placeholder="12345" />
                 <input type="hidden" class="form-control" id="accion" name="accion" value="2" />
-                <input type="hidden" class="form-control" id="libro" name="libro" value="{{libro.id}}" />
+                <input type="hidden" class="form-control" id="libro" name="libro" value="{{libro.ISBN}}" />
             </div>
             <button type="submit" class="btn btn-default">Buscar</button>
         </form>
@@ -84,8 +84,8 @@
             {% csrf_token %}         
             <div class="form-group">                
                 <input type="hidden" class="form-control" id="accion" name="accion" value="3" />
-                <input type="hidden" class="form-control" id="libro" name="libro" value="{{libro.id}}" />
-                <input type="hidden" class="form-control" id="estudiante" name="estudiante" value="{{estudiante.id}}" />
+                <input type="hidden" class="form-control" id="libro" name="libro" value="{{libro.ISBN}}" />
+                <input type="hidden" class="form-control" id="estudiante" name="estudiante" value="{{estudiante.codigo}}" />
             </div>
             <button type="submit" class="btn btn-default">¿Desea reservar?</button>
         </form>

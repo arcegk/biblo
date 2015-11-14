@@ -20,6 +20,8 @@
     
     function HiceClick(){
         libro  = document.getElementById("in").value;
+        document.getElementById('btn-c').style.display = 'block';
+        document.getElementById('dive').style.display = 'none';
         
         $("#datos").html("");
         var html ="";
@@ -57,6 +59,7 @@
     
     function HiceClick2(){
         code  = document.getElementById("incd").value;
+        document.getElementById('btn-c').style.display = 'none';
         $.ajax({
 
             data : {"code" : code , "libro" : libro},
@@ -68,6 +71,7 @@
                 var dt = data.data;
                 if(dt.length>0){
                     html= "Creado exitosamente consecutivo: " + "00" + dt[0].id;
+
                 }else{
                     html = "No se pudo crear";
                 }

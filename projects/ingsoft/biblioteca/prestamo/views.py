@@ -4,7 +4,9 @@ from .models import RegistroPrestamo
 from django.views.generic import TemplateView , View
 from pazys.models import Estudiante
 from libros.models import Libro
+from reservas.models import Reserva
 from datetime import datetime , timedelta
+from django.utils import timezone
 import json
 
 
@@ -24,17 +26,56 @@ class AjxGenerarPrestamo(View):
 		libro = request.GET.get('libro')
 		print code
 		diccionario = []
+
 		try:
-			obj = RegistroPrestamo()
-			obj.estudiante = Estudiante.objects.get(codigo=code)
-			obj.libro = Libro.objects.get(ISBN=libro)
-			obj.fechaInicioPrestamo = datetime.now()
-			obj.fechaLimite = datetime.now()+timedelta(days=5)
-			obj.save()
-			ide = obj.id 
-			diccionario.append({
-					'id' : ide,
-				})
+			lib = Libro.objects.get(ISBN=libro)
+			est = Estudiante.objects.get(codigo=code)
+			try:
+				rese = RegistroPrestamo.objects.get(libro=lib , activo=True)
+				pass
+
+			except ObjectDoesNotExist:
+
+				try:
+					q = Reserva.objects.get(libro=lib)
+
+					if q.estudiante == est and q.active :
+						obj = RegistroPrestamo()
+						obj.estudiante = est
+						obj.libro = lib
+						obj.fechaInicioPrestamo = timezone.now()
+						obj.fechaLimite = timezone.now()+timedelta(days=5)
+						obj.save()
+						ide = obj.id 
+						q.active = False
+						q.save()
+						diccionario.append({
+								'id' : ide,
+							})
+					else :
+						obj = RegistroPrestamo()
+						obj.estudiante = est
+						obj.libro = lib
+						obj.fechaInicioPrestamo = timezone.now()
+						obj.fechaLimite = timezone.now()+timedelta(days=5)
+						obj.save()
+						ide = obj.id 
+						diccionario.append({
+							'id' : ide,
+								})
+
+				except ObjectDoesNotExist:
+
+					obj = RegistroPrestamo()
+					obj.estudiante = est
+					obj.libro = lib
+					obj.fechaInicioPrestamo = timezone.now()
+					obj.fechaLimite = timezone.now()+timedelta(days=5)
+					obj.save()
+					ide = obj.id 
+					diccionario.append({
+						'id' : ide,
+							})
 
 		except ObjectDoesNotExist:
 			pass
