@@ -127,6 +127,7 @@ class AjxConsultaPrestamo(View):
 					'volumen' : item.libro.Volumen,
 					'activo' : item.activo,
 					'id' : item.id,
+					'fecha' : str(item.fechaInicioPrestamo),
 				})
 
 			diccionario.append({"prestamos" : dic  , 'nombre' : estu.nombre })
