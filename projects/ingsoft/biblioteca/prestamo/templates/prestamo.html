@@ -7,23 +7,31 @@
         var libro = "";
     </script>
     
-        libro code : <input  id="in" type="text" name="buscar">
-        <input  id="btn" type="submit" value="buscar">
-        <div id="dive" style="display:none">student code: <input  id="incd" type="text" name="codigo">  
-        <input  id="btn-c" type="submit" value="crear">
+        
+
+        student code: <input  id="incd" type="text" name="codigo">  
+        <input  id="btn-b" type="submit" value="buscar">
+
+        <div id="dive" style="display:none">
+            libro code : 
+            <input  id="in" type="text" name="buscar">
+            <input  id="btn" type="submit" value="buscar"> 
         </div>
 
-        <div id="datos"></div>
 
+        <input  id="btn-c" style="display:none" type="submit" value="crear">
+       
+
+        <div id="datos"></div>
+        <div id="datosl"></div>
     <script>
     $("#btn").on("click" , HiceClick);
     
     function HiceClick(){
         libro  = document.getElementById("in").value;
         document.getElementById('btn-c').style.display = 'block';
-        document.getElementById('dive').style.display = 'none';
         
-        $("#datos").html("");
+        $("#datosl").html("");
         var html ="";
 
         $.ajax({
@@ -44,7 +52,7 @@
                     document.getElementById('dive').style.display = 'none';
                 }
             
-                $("#datos").html(html);
+                $("#datosl").html(html);
 
             }
 
@@ -76,7 +84,7 @@
                     html = "No se pudo crear";
                 }
             
-                $("#datos").html(html);
+                $("#datosl").html(html);
 
             }
 
@@ -84,6 +92,42 @@
 
         });
     }
+</script>
+
+    <script>
+    $("#btn-b").on("click" , HiceClick3);
+    
+    function HiceClick3(){
+
+        code  = document.getElementById("incd").value;
+                var html ="";
+
+                $.ajax({
+ 
+                data : {"code" : code},
+                url : "/pazys/get-user",
+                type : "get",
+                dataType: 'json',
+                success : function(data){
+                    
+                    var dt = data.data;
+                    if(dt.length>0){
+                        html= "Nombre: " + dt[0].nombre + " Codigo: " + dt[0].codigo;
+                        document.getElementById('btn-c').style.display = 'block';
+                        document.getElementById('dive').style.display = 'block';
+                    }else{
+                        html = "No existe un estudiante con ese codigo";
+                    }
+                
+                    $("#datos").html(html);
+
+                }
+
+
+
+        });
+       
+}
 </script>
 
 {% endblock %}
