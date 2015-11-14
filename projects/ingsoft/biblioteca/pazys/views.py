@@ -3,6 +3,8 @@ from django.views.generic import TemplateView , View
 from django.http import HttpResponse
 import json
 from .models import PazySalvo , Estudiante
+from multas.models import Multa
+from prestamo.models import RegistroPrestamo
 from datetime import datetime  
 
 
@@ -22,17 +24,27 @@ class AjxGenerar(View):
 		print code
 		diccionario = []
 		try:
-			obj = PazySalvo()
-			obj.estudiante = Estudiante.objects.get(codigo=code)
-			obj.encargado = request.user
-			obj.save()
-			ide = obj.id 
-			diccionario.append({
-					'id' : ide,
-				})
+			est = Estudiante.objects.get(codigo=code)
 
 		except ObjectDoesNotExist:
 			pass
+		
+
+		q = RegistroPrestamo.objects.filter(estudiante=est, activo=True)
+		m = Multa.objects.filter(estudiante=est)
+
+		if m.count() is 0 and q.count() is 0: 
+			obj = PazySalvo()
+			obj.estudiante = est
+			obj.encargado = request.user
+			obj.save()
+			ide = obj.id 
+			print ide
+			diccionario.append({
+				'id' : ide,
+			})
+		print diccionario
+		
 
 		return HttpResponse(json.dumps({'data' : diccionario}) ,content_type='application/json')
 
@@ -75,7 +87,7 @@ class AjxConsulta(View):
 		print code
 		diccionario = []
 		try :
-			estudiante = Estudiante.objects.get(codigo=code)
+			estudiante = Estudiante.objects.get(numero_documento=code)
 			paz = PazySalvo.objects.filter(estudiante=estudiante)
 			
 			for pys in paz:	
@@ -85,7 +97,7 @@ class AjxConsulta(View):
 						'nombre' : pys.estudiante.nombre,
 						'consecutivo' : pys.id, 
 						'encargado' : pys.encargado.username,
-						'fecha' : str(pys.fecha),
+						'fecha' : str(pys.fecha_creacion),
 
 					})
 			print diccionario

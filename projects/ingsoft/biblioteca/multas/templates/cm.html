@@ -1,0 +1,55 @@
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+        var code = "";
+        var libro = "";
+    </script>
+    
+        student code :<input  id="in" type="text" name="buscar">
+        <input  id="btn" type="submit" value="buscar">
+
+
+        <div id="datos"></div>
+
+    <script>
+    $("#btn").on("click" , HiceClick);
+    
+    function HiceClick(){
+        code  = document.getElementById("in").value;
+        $("#datos").html("");
+        var html ="";
+
+        $.ajax({
+
+            data : {"code" : code},
+            url : "/dev-mul/ajx-consultar",
+            type : "get",
+            dataType: 'json',
+            success : function(data){
+                
+                var dt = data.data;                
+            
+            if(dt[0].multas.length>0){
+                    
+                      html+= dt[0].nombre + "\n";
+                      for(i=0; i<dt[0].multas.length ; i++){
+                      html+= "Valor: " + dt[0].multas[i].valor + "causa: " +  dt[0].multas[i].causa +"\n";
+                        }
+
+              }else if (dt[0].multas.length==0){
+
+                    html="No tiene multas pendientes";
+              }
+            
+              $("#datos").html(html);
+
+        }
+
+
+
+        });
+    }
+</script>
+</head>
+</html>

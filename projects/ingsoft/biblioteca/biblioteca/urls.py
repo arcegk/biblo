@@ -15,17 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from pazys.views import GetUser , GenerarPazySalvo , AjxConsulta , ConsultarPazySalvo , AjxGenerar
 
 urlpatterns = [
-    url(r'^$', 'biblioteca.views.index',name='index'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^get-user/$', GetUser.as_view() , name = "getus"),
-    url(r'^gen/$', GenerarPazySalvo.as_view() , name = "gen"),
-    url(r'^ajx-consulta/$', AjxConsulta.as_view() , name = "ajxC"),
-    url(r'^consultar/$', ConsultarPazySalvo.as_view() , name = "gen"),
-    url(r'^ajx-generar/$', AjxGenerar.as_view() , name = "ajxG"),
-    url(r'^reservas/', include('reservas.urls',namespace="reservas")),
     url(r'^prestamo/' , include('prestamo.urls' , namespace="prestamos")),
+    url(r'^pazys/' , include('pazys.urls' , namespace="pazys")),
+    url(r'^dev-mul/' , include('multas.urls' , namespace="multas")),
     url(r'^libros/', include('libros.urls', namespace='libros')),
+   
+    
+    
 ]

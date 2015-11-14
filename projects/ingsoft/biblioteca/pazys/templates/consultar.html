@@ -3,7 +3,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
-    	<input  id="in" type="text" name="buscar">
+    	Student ID: <input  id="in" type="text" name="buscar">
     	<input  id="btn" type="submit" value="buscar">
 
     	<div id="datos"></div>
@@ -19,16 +19,17 @@
     	$.ajax({
 
     		data : {"code" : code},
-    		url : "/ajx-consulta",
+    		url : "/pazys/ajx-consulta",
     		type : "get",
     		dataType: 'json',
     		success : function(data){
     			
     			var dt = data.data;
-    			if(dt.length>0){
+                console.log(data.data.length);
+    			if(data.data.length>0){
                     
-                    for(i=0; i<data.length ; i++){
-    				    html= "Nombre: " + dt[i].nombre + " Consecutivo: " + dt[i].consecutivo + " Encargado: " + dt[i].encargado;
+                    for(i=0; i<data.data.length ; i++){
+    				    html+= "Nombre: " + dt[i].nombre + " Consecutivo: 0" + dt[i].consecutivo + " Encargado: " + dt[i].encargado + "\n";
                     }
 
     			}else{

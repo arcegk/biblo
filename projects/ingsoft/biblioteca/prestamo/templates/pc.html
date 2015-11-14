@@ -3,7 +3,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
-      <input  id="in" type="text" name="buscar">
+      Student id: <input  id="in" type="text" name="buscar">
       <input  id="btn" type="submit" value="buscar">
 
       <div id="datos"></div>
@@ -19,7 +19,7 @@
       $.ajax({
 
         data : {"code" : code},
-        url : "/ajx-consultarp",
+        url : "/prestamo/ajx-consultarp",
         type : "get",
         dataType: 'json',
         success : function(data){
@@ -35,7 +35,7 @@
                     
                   html+= dt[0].nombre + "\n";
                   for(i=0; i<dt[0].prestamos.length ; i++){
-                  html+= "Titulo: " + dt[0].prestamos[0].titulo + "\n";
+                  html+= "Consecutivo: " + dt[0].prestamos[i].id + " Titulo: " + dt[0].prestamos[i].titulo + " Activo: " + dt[0].prestamos[i].activo +"\n";
                     }
 
           }

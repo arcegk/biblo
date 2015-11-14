@@ -6,8 +6,8 @@
         var libro = "";
     </script>
     
-        <input  id="in" type="text" name="buscar">
-        <input  id="incd" type="text" name="codigo">
+        libro code : <input  id="in" type="text" name="buscar">
+        student code: <input  id="incd" type="text" name="codigo">
         <input  id="btn" type="submit" value="buscar">
         <input  id="btn-c" type="submit" value="crear">
 
@@ -24,7 +24,7 @@
         $.ajax({
 
             data : {"libro" : libro},
-            url : "/ajx-consultarl",
+            url : "/prestamo/ajx-consultarl",
             type : "get",
             dataType: 'json',
             success : function(data){
@@ -54,7 +54,7 @@
         $.ajax({
 
             data : {"code" : code , "libro" : libro},
-            url : "/ajx-generarp",
+            url : "/prestamo/ajx-generar",
             type : "get",
             dataType: 'json',
             success : function(data){

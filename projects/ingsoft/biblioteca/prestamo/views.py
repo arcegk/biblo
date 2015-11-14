@@ -26,8 +26,8 @@ class AjxGenerarPrestamo(View):
 		diccionario = []
 		try:
 			obj = RegistroPrestamo()
-			obj.estudiante = Estudiante.objects.get(codigo=code)
-			obj.libro = Libro.objects.get(codigoasignado=libro)
+			obj.estudiante = Estudiante.objects.get(numero_documento=code)
+			obj.libro = Libro.objects.get(ISBN=libro)
 			obj.fechaInicioPrestamo = datetime.now()
 			obj.fechaLimite = datetime.now()+timedelta(days=5)
 			obj.save()
@@ -52,11 +52,11 @@ class AjxConsultaLibro(View):
 		diccionario = []
 		try:
 			
-			libro = Libro.objects.get(codigoasignado=libro)
+			libro = Libro.objects.get(ISBN=libro)
 			diccionario.append({
 					'titulo' : libro.titulo,
 					'edicion' : libro.Edicion,
-					'volumen' : libro.volumen,
+					'volumen' : libro.Volumen,
 				})
 
 		except ObjectDoesNotExist:
@@ -76,14 +76,16 @@ class AjxConsultaPrestamo(View):
 		diccionario = []
 		dic = []
 		try:
-			estu = Estudiante.objects.get(codigo=code)
+			estu = Estudiante.objects.get(numero_documento=code)
 			obj = RegistroPrestamo.objects.filter(estudiante=estu)
 			for item in obj:
 				dic.append({
 
-					'titulo' : item.libro.tituloLibro,
-					'edicion' : item.libro.edicionLibro,
-					'volumen' : item.libro.volumenLibro,
+					'titulo' : item.libro.titulo,
+					'edicion' : item.libro.Edicion,
+					'volumen' : item.libro.Volumen,
+					'activo' : item.activo,
+					'id' : item.id,
 				})
 
 			diccionario.append({"prestamos" : dic  , 'nombre' : estu.nombre })

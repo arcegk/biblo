@@ -5,9 +5,9 @@
     	var code = "";
     </script>
     
-    	<input  id="in" type="text" name="buscar">
+    	Student code: <input  id="in" type="text" name="buscar">
     	<input  id="btn" type="submit" value="buscar">
-    	<input 	id="btn-c" type="submit" value="crear">
+    	<input 	id="btn-c" type="submit" style="display:none" value="crear">
 
     	<div id="datos"></div>
 
@@ -16,13 +16,14 @@
     
     function HiceClick(){
     	code  = document.getElementById("in").value;
+        document.getElementById('btn-c').style.display = 'block';
     	$("#datos").html("");
     	var html ="";
 
     	$.ajax({
 
     		data : {"code" : code},
-    		url : "/get-user",
+    		url : "/pazys/get-user",
     		type : "get",
     		dataType: 'json',
     		success : function(data){
@@ -52,14 +53,14 @@
     	$.ajax({
 
     		data : {"code" : code},
-    		url : "/ajx-generar",
+    		url : "/pazys/ajx-generar",
     		type : "get",
     		dataType: 'json',
     		success : function(data){
     			
     			var dt = data.data;
     			if(dt.length>0){
-    				html= "Creado exitosamente consecutivo: " + "00" + dt[0].id;
+    				html= "Creado exitosamente consecutivo: " + "0" + dt[0].id;
     			}else{
     				html = "No se pudo crear";
     			}

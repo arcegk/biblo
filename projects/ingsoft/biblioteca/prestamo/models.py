@@ -9,6 +9,7 @@ class RegistroPrestamo(models.Model):
     nombreEstudiante = models.CharField(max_length=200)
     fechaInicioPrestamo = models.DateTimeField(default=timezone.now)
     fechaLimite = models.DateTimeField()
+    activo = models.BooleanField(default=True)
 
-    def __str__(self):
-        return self.numeroRegistro    
+def __str__(self):
+    return self.numeroRegistro    

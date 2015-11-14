@@ -1,0 +1,53 @@
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+     Registro prestamo: <input  id="in" type="text" name="buscar">
+    Estado : <input  id="est" type="text" name="buscar">
+      <input  id="btn" type="submit" value="buscar">
+
+      <div id="datos"></div>
+
+    <script>
+    $("#btn").on("click" , HiceClick);
+    
+    function HiceClick(){
+      var ide = document.getElementById("in").value;
+      var est = document.getElementById("est").value;
+      $("#datos").html("");
+      var html ="";
+
+      $.ajax({
+
+        data : {"id" : ide , "estado" : est},
+        url : "/dev-mul/ajx-generar",
+        type : "get",
+        dataType: 'json',
+        success : function(data){
+          
+          var dt = data.data;
+          console.log(dt)
+
+
+          if(dt.length==0){
+            html = "Prestamo no activo";
+          
+          }else if(dt[0].listo){
+                    
+                  html+= "Devuelto correctamente";
+
+          }
+        
+          $("#datos").html(html);
+
+        }
+
+
+
+      });
+    }
+</script>
+
+</head>
+</html>

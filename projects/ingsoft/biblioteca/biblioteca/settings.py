@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'biblioteca',
     'prestamo',
     'libros',
+    'multas',
+    'gunicorn',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,8 +88,12 @@ WSGI_APPLICATION = 'biblioteca.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'test',
+        'USER': 'test',
+        'PASSWORD': 'test',
+        'HOST': 'localhost',
+        'PORT' : '5432',
     }
 }
 
