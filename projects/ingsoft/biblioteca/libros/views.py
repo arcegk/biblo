@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from django.forms import ModelForm
 from django.db.models import Q
 
@@ -154,11 +155,11 @@ class LibroFormEdit(ModelForm):
 def libros_list(request):
 	
 	try:
-		libros = Libro.objects.filter( Q(titulo__icontains=request.GET['filter']) | Q(autor__icontains=request.GET['filter']) )
+		libros = Libro.objects.filter(ISBN=request.GET.get('filter'))
 		#libros = Libro.objects.filter(nombre=request.GET['filter'])
-	except:
+	except ObjectDoesNotExist: 
 	   # libros = Libro.objects.all()
-	   libros = False
+	   pass
 
 	#if request.GET.has_key("filter"):
 	#if( hasattr(request.GET, 'filter') ):

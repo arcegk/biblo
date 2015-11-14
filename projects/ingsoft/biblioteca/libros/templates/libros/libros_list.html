@@ -7,7 +7,7 @@
         	<input type="submit" value="Filtrar" />
     	</form>
 	<ul>
-	    {% if libros %}        
+	    {% if libros.count > 0 %}        
                 {% for libro in libros %}
                     <li>{{ libro.titulo }} - ({{ libro.autor }}) - ({{ libro.codigoasignado }})-({{libro.temaprincipal}})
                         <a href="{% url 'libros:libros_update' libro.id %}">Edit</a>
@@ -15,8 +15,10 @@
                     </li>
                 {% endfor %}
             {% else %}
+            {% if request.GET.filter != None%}
                 <h2>Termino de búsqueda es invalido o no fue encontrado</h2>
             {% endif %}
+        {% endif %}
 	</ul>
 
 	<a href="{% url 'libros:libros_create' %}">CREAR LIBRO</a>
