@@ -8,9 +8,10 @@
     </script>
     
         libro code : <input  id="in" type="text" name="buscar">
-        student code: <input  id="incd" type="text" name="codigo">
         <input  id="btn" type="submit" value="buscar">
+        <div id="dive" style="display:none">student code: <input  id="incd" type="text" name="codigo">  
         <input  id="btn-c" type="submit" value="crear">
+        </div>
 
         <div id="datos"></div>
 
@@ -19,6 +20,7 @@
     
     function HiceClick(){
         libro  = document.getElementById("in").value;
+
         $("#datos").html("");
         var html ="";
 
@@ -33,8 +35,11 @@
                 var dt = data.data;
                 if(dt.length>0){
                     html= "titulo: " + dt[0].titulo + " edicion: " + dt[0].edicion + " volumen: " + dt[0].volumen;
+                    document.getElementById('dive').style.display = 'block';
+
                 }else{
                     html = "No existe un libro con ese codigo";
+                    document.getElementById('dive').style.display = 'none';
                 }
             
                 $("#datos").html(html);
