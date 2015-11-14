@@ -45,6 +45,7 @@ class AjxGenerarDevolucion(View):
 				causa = "Demora en la devolucion"
 				mul.valor_total = str(5000*(delta.days))
 
+			print estado
 			if dev.estado.lower() == "malo" or dev.estado.lower() == "regular":
 				mul = Multa()
 				mul.estudiante = pres.estudiante 
@@ -52,6 +53,7 @@ class AjxGenerarDevolucion(View):
 				mul.dias_retraso = 0
 				mul.causa = "Libro en mal estado"
 				mul.valor_total = pres.libro.preciocompra
+				mul.save()
 
 			diccionario.append({"listo" : True})
 
