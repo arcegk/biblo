@@ -26,7 +26,7 @@ class AjxGenerarPrestamo(View):
 		diccionario = []
 		try:
 			obj = RegistroPrestamo()
-			obj.estudiante = Estudiante.objects.get(numero_documento=code)
+			obj.estudiante = Estudiante.objects.get(codigo=code)
 			obj.libro = Libro.objects.get(ISBN=libro)
 			obj.fechaInicioPrestamo = datetime.now()
 			obj.fechaLimite = datetime.now()+timedelta(days=5)
